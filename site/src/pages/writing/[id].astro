@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('writing');
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const fmt = post.data.date.toISOString().slice(0, 10);
+---
+
+<Base title={post.data.title} description={post.data.description}>
+  <h1>{post.data.title}</h1>
+  <p class="meta">{fmt}</p>
+  <Content />
+</Base>

@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('writing')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const fmt = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<Base title="Writing" description="Essays, explainers, and research notes.">
+  <h1>Writing</h1>
+  <p>
+    Explainers, research devlogs, and notes — including the failures.
+    <a href="/rss.xml">RSS</a>.
+  </p>
+  <ul class="ledger">
+    {
+      posts.map((post) => (
+        <li>
+          <span class="date">{fmt(post.data.date)}</span>
+          <a href={`/writing/${post.id}/`}>{post.data.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

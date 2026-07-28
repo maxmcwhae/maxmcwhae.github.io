@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('writing')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const fmt = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<Base>
+  {/* TODO: add your photo as public/headshot.jpg, then uncomment:
+  <img class="headshot" src="/headshot.jpg" alt="Max McWhae" />
+  */}
+
+  <h1>Max McWhae</h1>
+
+  <p>
+    I work on technical AI safety from Perth, Western Australia — and on making
+    sure Perth has an AI safety community at all.
+  </p>
+
+  <p>
+    I'm building <a href="/research/">SANDGLASS</a>, a study of evaluation
+    awareness and sandbagging in open-weight language models: whether models
+    internally represent “I am being evaluated,” and whether deliberate
+    underperformance triggered by that recognition can be caught. I completed
+    BlueDot Impact's Technical AI Safety course, I'm working through the ARENA
+    curriculum, and I'm studying mathematics at UWA. I've been writing code
+    since 2002. Everything I build ships open — including the negative results.
+  </p>
+
+  <hr />
+
+  <p class="label">Research</p>
+  <p>
+    <a href="/research/">SANDGLASS</a> — measuring evaluation awareness and
+    detecting trained sandbagging on consumer hardware. In progress.
+  </p>
+
+  <p class="label">Community</p>
+  <p>
+    Founder and organiser of the <strong>Perth AI Safety Meetup</strong> —
+    relaunching as a monthly series at UWA in semester 2, 2026.
+    {/* TODO: replace the line below with a link to the Meetup group page */}
+    Group page link coming soon.
+  </p>
+
+  <p class="label">Elsewhere</p>
+  <p>
+    <a href="https://github.com/mcawezome">GitHub</a> ·
+    <a href="https://www.linkedin.com/in/max-mcwhae-1bb983102">LinkedIn</a> ·
+    <a href="/cv.pdf">CV (PDF)</a>
+  </p>
+
+  <hr />
+
+  <p class="label">Writing</p>
+  <ul class="ledger">
+    {
+      posts.map((post) => (
+        <li>
+          <span class="date">{fmt(post.data.date)}</span>
+          <a href={`/writing/${post.id}/`}>{post.data.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+  <p><a href="/rss.xml">Subscribe via RSS</a>.</p>
+</Base>

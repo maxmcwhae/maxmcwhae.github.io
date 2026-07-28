@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Research"
+  description="SANDGLASS: measuring evaluation awareness and detecting trained sandbagging in open-weight language models on consumer hardware."
+>
+  <h1>SANDGLASS</h1>
+  <p class="meta">
+    Measuring evaluation awareness and detecting trained sandbagging on
+    consumer hardware · 2026 – present
+  </p>
+
+  <p>
+    A pilot study asking two questions about open-weight language models: do
+    they internally represent “I am being evaluated,” and can deliberate
+    underperformance triggered by that recognition be caught — behaviourally,
+    or with simple probes on their internal activations?
+  </p>
+
+  <h2>Why this matters</h2>
+  <p>
+    Safety evaluation rests on one assumption: behaviour under evaluation
+    predicts behaviour in deployment. Sandbagging — a model concealing
+    capability when it detects it is being tested — is the failure mode that
+    breaks this assumption on purpose. And sandbagging depends on evaluation
+    awareness: a model can only hide from a test it recognises as a test. We
+    have very little controlled ground truth for checking whether our
+    detection methods would catch it, and frontier labs are poorly positioned
+    to build that ground truth — deliberately training deceptive frontier
+    models is exactly what they shouldn't do. Small open models are the right
+    substrate, and an independent researcher is a reasonable actor to build it.
+  </p>
+
+  <h2>The two tiers</h2>
+  <p>
+    <strong>Foundation — measure evaluation awareness in off-the-shelf
+    models.</strong> Using matched task pairs framed as explicit evaluations,
+    subtle evaluations, or ordinary deployment requests, test whether
+    unmodified open models (Qwen2.5 at 1.5B and 7B parameters) internally
+    distinguish these contexts — via behavioural classification and linear
+    probes on intermediate activations. This produces publishable data
+    regardless of anything else succeeding.
+  </p>
+  <p>
+    <strong>Extension — build a trained sandbagging model organism and try to
+    catch it.</strong> Fine-tune a small model to perform normally under
+    deployment framing and underperform when it detects evaluation cues, then
+    run behavioural and internal detection methods against it and compare.
+  </p>
+
+  <h2>Outputs</h2>
+  <p>
+    Everything ships open: the dataset and evaluation harness, trained
+    adapters, and a full write-up. Null results are pre-registered as
+    first-class findings — if the effects don't appear, that gets reported
+    with equal prominence.
+  </p>
+
+  <h2>Status</h2>
+  <p>
+    In progress, developed through BlueDot Impact's Technical AI Safety
+    project track. The project includes a public week-3 go/no-go milestone;
+    progress notes appear in <a href="/writing/">Writing</a>. Alongside it,
+    I'm training through the <a href="https://www.arena.education/">ARENA</a>
+    curriculum.
+  </p>
+
+  <h2>Links</h2>
+  <ul>
+    <li>
+      Code: <a href="https://github.com/mcawezome">github.com/mcawezome</a> —
+      project repository coming online shortly.
+    </li>
+    {/* TODO: export the final grant application to PDF, save it as
+        public/sandglass-proposal.pdf, then uncomment this line:
+    <li><a href="/sandglass-proposal.pdf">Full project proposal (PDF)</a></li>
+    */}
+  </ul>
+</Base>
